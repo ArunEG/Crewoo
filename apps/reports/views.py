@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from .lib import get_or_none
+from .lib import get_or_none,date_from_excel
 from wkhtmltopdf.views import PDFTemplateResponse
 from apps.reports.models import ProjectInfo
 from django.http import Http404
 import xlwt
-from django.http import HttpResponse
+import xlrd
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.utils.html import strip_tags
+from django.contrib import messages
 
 
 def insertcolx():
@@ -26,6 +29,48 @@ def insertcolx():
 	style.protection.cell_locked = False
 	style.protection.formula_hidden = False
 	return style
+
+def upload_file(request):
+	"""
+		The view use for upload files
+
+		@Author : Arun Gopi
+		@date   : 6/4/2016
+	"""
+	sheetname = 'ProjectInfo'
+
+
+	if 'project_info_excel' in request.FILES:
+		import pdb; pdb.set_trace()
+		upload_excel=request.FILES['project_info_excel'].read()
+		try:
+			work_book=xlrd.open_workbook(file_contents=upload_excel)
+		except:
+			messages.error(request, 'You are trying to uplaod a file that is not supported. Please select the downloaded file only.')
+			return HttpResponseRedirect(reverse('upload_file', args=[]))
+
+		try:
+			worksheet = work_book.sheet_by_name(sheetname)
+		except:
+			messages.error(request, 'You are trying to uplaod a wrong file. Please upload a file with sheet name ' + sheetname +'.')
+			return HttpResponseRedirect(reverse('upload_file', args=[]))
+
+		rows=worksheet.nrows
+		cols=worksheet.ncols
+
+		for row in xrange(1,rows):
+			name = worksheet.cell_value(row,0)
+			description = worksheet.cell_value(row,1)
+			start_date = date_from_excel(worksheet.cell_value(row,2), work_book.datemode)
+			end_date = date_from_excel(worksheet.cell_value(row,3), work_book.datemode)
+
+			print 'name  :  ',name
+			print 'description  :  ',description
+			print 'start_date  :  ',start_date
+			print 'end_date  :  ' ,end_date
+	
+	return render(request,'reports/upload.html',{}) 
+
 
 def get_project_as_pdf(request,data):
 	""" The function will retun project info in pdf format
