@@ -32,7 +32,7 @@ def date_from_excel(d, dm):
                     d, dm)
                 d = "%04d-%02d-%02d" % (year, month, day)
             elif isinstance(d, str) or isinstance(d, unicode):
-                d = datetime.strptime(d, '%d-%m-%Y').strftime('%Y-%m-%d')
+                d = datetime.strptime(d, '%d-%m-%Y %I:%M')
             else:
                 print "ERROR : Unknown datatype", type(d)
         except ValueError:
