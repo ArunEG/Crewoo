@@ -1,0 +1,24 @@
+#Python 3.4.3
+#this file will helps you to install the necessary packages
+#
+# for installing wkhtmltopdf use the following command
+# 
+
+sudo add-apt-repository ppa:ecometrica/servers
+sudo apt-get update
+sudo apt-get install wkhtmltopdf  
+
+#copy the dependencies(packages) mentioned below to one file called req.txt
+# and run the following command
+#   pip install -r req.txt
+
+
+## dependencies
+Django==1.8
+django-wkhtmltopdf==3.0.0
+lxml==3.6.0
+python-docx==0.8.5
+virtualenv==15.0.1
+xlrd==0.9.4
+xlwt==1.0.0
+	
