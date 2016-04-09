@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .lib import *
+from .utils import *
 from wkhtmltopdf.views import PDFTemplateResponse
 from apps.reports.models import ProjectInfo
 from django.http import Http404
@@ -11,24 +12,18 @@ from django.utils.html import strip_tags
 from django.contrib import messages
 
 
-def insertcolx():
-	"""
-			Excel row/colum style for excel
-			@Author  : Arun Gopi
-			@date    : 3/4/2016
-	"""
+def new_project(request):
+	return_data = {}
+	if request.POST:
+		data = {}
+		data['name'] = request.POST.get('name')
+		data['description'] = request.POST.get('description')
+		data['start_date'] = request.POST.get('start_date')
+		data['end_date'] = request.POST.get('end_date')
+		create_project(data)
+		
+	return render(request, 'reports/new_project.html', return_data)
 
-	style = xlwt.XFStyle()
-	borders = xlwt.Borders()
-	borders.bottom = borders.top = borders.left\
-		= borders.right = xlwt.Borders.THIN
-	borders.top = xlwt.Borders.THIN
-	style.borders = borders
-	style.pattern.pattern = 26
-	style.pattern.pattern_fore_colour = 0x16
-	style.protection.cell_locked = False
-	style.protection.formula_hidden = False
-	return style
 
 
 def upload_file(request):
