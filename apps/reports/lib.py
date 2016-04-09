@@ -35,7 +35,7 @@ def date_from_excel(d, dm):
 			elif isinstance(d, str) or isinstance(d, unicode):
 				d = datetime.strptime(d, '%d-%m-%Y %I:%M')
 			else:
-				print "ERROR : Unknown datatype", type(d)
+				print ("ERROR : Unknown datatype", type(d))
 		except ValueError:
 			d = None
 	else:
@@ -58,7 +58,7 @@ def create_project_info(data):
 	project.start_date = data['start_date']
 	project.end_date = data['end_date']
 	project.save()
-	print 'Inserted'
+	print ('Inserted')
 	return True
 
 def update_project_info(data):
@@ -78,7 +78,7 @@ def update_project_info(data):
 				project.start_date = data['start_date']
 				project.end_date = data['end_date']
 				project.save()
-				print 'Updated'
+				print ('Updated')
 				return True
 			else:
 				return False
@@ -86,6 +86,6 @@ def update_project_info(data):
 			return False
 
 	else:
-		print "please provide pk for updating"
+		print ("please provide pk for updating")
 		return False
 
