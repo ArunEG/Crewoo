@@ -1,0 +1,49 @@
+<html>
+	{% load static %}
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	    <title>Projects</title>
+
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+	    <link href="{% static 'core/css/bootstrap.min.css' %}" rel="stylesheet">
+	    <link href="/static/core/css/style.css" rel="stylesheet">
+
+	  </head>
+	<body>
+		<h3 class="text-muted">
+				Projects
+		</h3>
+		
+			
+		{%if projects%}
+			<table class="table table-striped table-bordered table-hover dataTable no-foote">
+				<tr>
+					<th>Project Name</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Download</th>
+				</tr>
+				{% for project in projects %}
+					<tr>
+						<td><a href="{% url 'project_detail' project.pk %}">{{project.title}}</a></td>
+						<td>{{project.start_date}}</td>
+						<td>{{project.end_date}}</td>
+						<td><a href="{% url 'download_project' project.pk 'pdf' %}">PDF</a>|
+							<a href="{% url 'download_project' project.pk 'word' %}">Word</a>|
+							<a href="{% url 'download_project' project.pk 'excel' %}">Excel</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			No project exist
+		{% endif %}
+
+		
+	</body>
+</html

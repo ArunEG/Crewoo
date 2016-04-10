@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 from apps.staffs.models import *
+from .managers import *
 
 
 class BaseClass(models.Model):
@@ -35,6 +36,7 @@ class Project(ProjectBase):
     client_name = models.CharField(max_length=30, null=False, blank=False)
     createdby = models.ForeignKey(User, related_name='project_createdby')
     modifiedby = models.ForeignKey(User, related_name='project_modifedby')
+    objects = ProjectManager()
 
     class Meta:
         verbose_name = ('Project')
