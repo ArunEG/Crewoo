@@ -32,10 +32,10 @@ class ProjectBase(BaseClass):
 
 
 class Project(ProjectBase):
-    manager = models.ForeignKey(User, null=False, blank=False)
+    manager = models.ForeignKey(Staff, null=False, blank=False)
     client_name = models.CharField(max_length=30, null=False, blank=False)
-    createdby = models.ForeignKey(User, related_name='project_createdby')
-    modifiedby = models.ForeignKey(User, related_name='project_modifedby')
+    createdby = models.ForeignKey(Staff, related_name='project_createdby')
+    modifiedby = models.ForeignKey(Staff, related_name='project_modifedby')
     objects = ProjectManager()
 
     class Meta:
@@ -52,8 +52,8 @@ class Modules(BaseClass):
     short_description = models.CharField(
         max_length=300, null=False, blank=False)
     detailed_description = models.TextField(null=False, blank=False)
-    createdby = models.ForeignKey(User, related_name='modules_createdby')
-    modifiedby = models.ForeignKey(User, related_name='modules_modifedby')
+    createdby = models.ForeignKey(Staff, related_name='modules_createdby')
+    modifiedby = models.ForeignKey(Staff, related_name='modules_modifedby')
 
     class Meta:
         verbose_name = ('Module')
@@ -69,8 +69,8 @@ class Tasks(BaseClass):
     short_description = models.CharField(
         max_length=300, null=False, blank=False)
     detailed_description = models.TextField(null=False, blank=False)
-    createdby = models.ForeignKey(User, related_name='task_createdby')
-    modifiedby = models.ForeignKey(User, related_name='task_modifedby')
+    createdby = models.ForeignKey(Staff, related_name='task_createdby')
+    modifiedby = models.ForeignKey(Staff, related_name='task_modifedby')
 
     class Meta:
         verbose_name = ('Task')
@@ -78,3 +78,9 @@ class Tasks(BaseClass):
 
     def __unicode_(self):
         return self.title
+
+
+class Commends(models.Model):
+    project = models.ForeignKey(Project, null=False, blank=False)
+    subject = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=False, blank=False)

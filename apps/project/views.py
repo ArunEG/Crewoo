@@ -20,7 +20,7 @@ class ProjectList(ListView):
     projects = Project.objects.active()
 
     def get(self, request, *args, **kwargs):
-
+        print ("self.projects  : ", self.projects)
         return render(request, self.template_name, {'projects': self.projects})
 
 
@@ -32,6 +32,7 @@ class ProjectDetail(DetailView):
         @Author : Arun Gopi
         @Date   : 10/4/2016
     """
+
     template_name = 'project/project_details.html'
 
     def get(self, request, *args, **kwargs):
@@ -41,6 +42,15 @@ class ProjectDetail(DetailView):
 
 
 class DownloadProject(View):
+    """
+        This class will helps to download project details
+        as word,pdf or excel
+        required project_id as parameter
+        and which format is required
+        @Author : Arun Gopi
+        @Date   : 10/4/2016
+    """
+
     template_name = 'project/project_list.html'
 
     def get(self, request, *args, **kwargs):
@@ -54,7 +64,7 @@ class DownloadProject(View):
         elif kwargs['download'] == 'excel':
             response = get_project_as_excel(project)
         elif kwargs['download'] == 'word':
-            pass
+            response = get_project_as_word(project)
         return response
 
         return render(request, self.template_name, {'projects': self.projects})
