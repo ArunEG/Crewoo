@@ -40,6 +40,8 @@ INSTALLED_APPS = (
 )
 
 MYAPPS = ('apps.reports',
+          'apps.project',
+          'apps.staffs',
 )
 
 INSTALLED_APPS +=MYAPPS

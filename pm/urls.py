@@ -8,6 +8,8 @@ urlpatterns = [
     # url(r'^$', 'pm.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^', include('apps.reports.urls')),
+    url(r'^', include('apps.project.urls')),
+    url(r'^', include('apps.staffs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

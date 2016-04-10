@@ -1,5 +1,4 @@
 from django.db import models
-from .managers import *
 
 class ProjectInfo(models.Model):
     name = models.CharField(max_length=30,null=False,blank=False)
@@ -10,5 +9,3 @@ class ProjectInfo(models.Model):
     createdon = models.DateTimeField(auto_now_add=True)
     # createdby = models.ForeignKey(User)
     lastmodon = models.DateTimeField(auto_now=True)
-
-    objects = ProjectInfoManager()
