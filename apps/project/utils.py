@@ -148,18 +148,18 @@ def get_project_as_word(project):
     font.size = Pt(8)
     font = document.add_paragraph(style='ListBullet').add_run(project.detailed_description).font
     font.size = Pt(8)
-    font = document.add_paragraph(style='ListBullet').add_run(str(project.start_date)).font
+    font = document.add_paragraph(style='ListBullet').add_run('Start Date       : '+str(project.start_date.strftime('%d-%m-%Y'))).font
     font.size = Pt(8)
-    font = document.add_paragraph(style='ListBullet').add_run(str(project.end_date)).font
+    font = document.add_paragraph(style='ListBullet').add_run('End Date         : '+str(project.end_date.strftime('%d-%m-%Y'))).font
     font.size = Pt(8)
-    font = document.add_paragraph(style='ListBullet').add_run(project.manager.first_name).font
+    font = document.add_paragraph(style='ListBullet').add_run('Project Manager  : '+ project.manager.first_name).font
     font.size = Pt(8)
-    font = document.add_paragraph(style='ListBullet').add_run(project.client_name).font
+    font = document.add_paragraph(style='ListBullet').add_run('Client Name      : '+project.client_name).font
     font.size = Pt(8)
-    font = document.add_paragraph(style='ListBullet').add_run(project.createdby.first_name).font
-    font.size = Pt(8)
-    font = document.add_paragraph(style='ListBullet').add_run(project.modifiedby.first_name).font
-    font.size = Pt(8)
+    # font = document.add_paragraph(style='ListBullet').add_run(project.createdby.first_name).font
+    # font.size = Pt(8)
+    # font = document.add_paragraph(style='ListBullet').add_run(project.modifiedby.first_name).font
+    # font.size = Pt(8)
 
 
 
@@ -174,14 +174,14 @@ def get_project_as_word(project):
     document.save(response)
     return response
 
-
-# title
-# short_description
-# detailed_description
-# start_date
-# end_date
-
-# manager
-# client_name
-# createdby
-# modifiedby
+def save_comment(data):
+    """
+        Create new comment for an attachent file
+        @Author : Arun Gopi
+        @date   : 15/4/16
+    """
+    comment = Comments()
+    comment.project_id = data['project_id']
+    comment.subject = data['subject']
+    comment.description = data['description']
+    comment.save()

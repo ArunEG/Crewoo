@@ -10,7 +10,7 @@ class ProjectManager(models.Manager):
 			@Author : Arun Gopi
 			@Date   : 9/4/2016
 		"""
-		return self.get_queryset().filter(is_deleted=0)
+		return self.get_queryset().filter(is_deleted=False)
 
 
 		

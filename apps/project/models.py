@@ -1,7 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-
-# Create your models here.
+from apps.core.validators import validate_file_extension
 from apps.staffs.models import *
 from .managers import *
 
@@ -34,6 +32,7 @@ class ProjectBase(BaseClass):
 class Project(ProjectBase):
     manager = models.ForeignKey(Staff, null=False, blank=False)
     client_name = models.CharField(max_length=30, null=False, blank=False)
+    attachments = models.ManyToManyField('ProjectAttachment')
     createdby = models.ForeignKey(Staff, related_name='project_createdby')
     modifiedby = models.ForeignKey(Staff, related_name='project_modifedby')
     objects = ProjectManager()
@@ -42,8 +41,16 @@ class Project(ProjectBase):
         verbose_name = ('Project')
         verbose_name_plural = ('Projects')
 
-    def __unicode_(self):
-        return self.title
+    def __unicode__(self):
+        return self.client_name
+
+
+class ProjectAttachment(BaseClass):
+    file = models.FileField(upload_to="project/attachment",
+                            validators=[validate_file_extension], max_length=200, blank=True)
+
+    # def __unicode__(self):
+    #     return self.title
 
 
 class Modules(BaseClass):
@@ -59,7 +66,7 @@ class Modules(BaseClass):
         verbose_name = ('Module')
         verbose_name_plural = ('Modules')
 
-    def __unicode_(self):
+    def __unicode__(self):
         return self.title
 
 
@@ -76,11 +83,12 @@ class Tasks(BaseClass):
         verbose_name = ('Task')
         verbose_name_plural = ('Tasks')
 
-    def __unicode_(self):
+    def __unicode__(self):
         return self.title
 
 
-class Commends(models.Model):
-    project = models.ForeignKey(Project, null=False, blank=False)
+class Comments(models.Model):
+    project = models.ForeignKey(
+        Project, related_name='comments', null=False, blank=False)
     subject = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(null=False, blank=False)

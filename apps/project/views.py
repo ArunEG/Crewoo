@@ -17,10 +17,10 @@ class ProjectList(ListView):
         @Date   : 10/4/2016
     """
     template_name = 'project/project_list.html'
-    projects = Project.objects.active()
+    projects = Project.objects.all()
 
     def get(self, request, *args, **kwargs):
-        print ("self.projects  : ", self.projects)
+        print("self.projects  : ", self.projects)
         return render(request, self.template_name, {'projects': self.projects})
 
 
@@ -34,14 +34,40 @@ class ProjectDetail(DetailView):
     """
 
     template_name = 'project/project_details.html'
+    attachment = None
+    return_data = {}
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+            The function will exicute if any request is received
+            It will act as a constructor for our class
+        """
+        self.project = get_or_none(Project, pk=kwargs['project_id'])
+        self.comments = self.project.comments.all()
+        attachments = self.project.attachments.all()
+        if attachments:
+            self.attachment = attachments[0]
+        self.return_data['project'] = self.project
+        self.return_data['attachment'] = self.attachment
+        self.return_data['comments'] = self.comments
+        return super(ProjectDetail, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        self.project = get_or_none(Project, pk=kwargs['project_id'])
+        return render(request, self.template_name, self.return_data)
 
-        return render(request, self.template_name, {'project': self.project})
+    def post(self, request, *args, **kwargs):
+        data = {}
+        subject = request.POST.get('subject')
+        description = request.POST.get('comment')
+        data['project_id'] = self.project.pk
+        data['subject'] = subject
+        data['description'] = description
+        save_comment(data)
+        return render(request, self.template_name, self.return_data)
 
 
 class DownloadProject(View):
+
     """
         This class will helps to download project details
         as word,pdf or excel
