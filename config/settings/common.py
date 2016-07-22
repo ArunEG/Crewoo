@@ -103,11 +103,15 @@ MANAGERS = ADMINS
 # }
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': str(APPS_DIR.path('db.sqlite3')),
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'crewoo',
+        'USER': 'crewoouser',
+        'PASSWORD': 'C0nnectDb',
+        'HOST': 'localhost',
+        'PORT': '',
     }
+}
 
 
 DATABASES['default']['ATOMIC_REQUESTS'] = True
