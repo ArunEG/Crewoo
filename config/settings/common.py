@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
-
+environ.Env.read_env('.env')
 ROOT_DIR = environ.Path(__file__) - 3  # (crewoo/config/settings/common.py - 3 = crewoo/)
 APPS_DIR = ROOT_DIR.path('crewoo')
 
