@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# crewoo documentation build configuration file, created by
+# Crewoo documentation build configuration file, created by
 # sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -43,8 +43,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'crewoo'
-copyright = """2016, Your Name"""
+project = 'Crewoo'
+copyright = """2016, Arun Gopi"""
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -188,8 +188,8 @@ latex_elements = {
 latex_documents = [
     ('index',
      'crewoo.tex',
-     'crewoo Documentation',
-     """Your Name""", 'manual'),
+     'Crewoo Documentation',
+     """Arun Gopi""", 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -218,8 +218,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'crewoo', 'crewoo Documentation',
-     ["""Your Name"""], 1)
+    ('index', 'crewoo', 'Crewoo Documentation',
+     ["""Arun Gopi"""], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -232,9 +232,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'crewoo', 'crewoo Documentation',
-     """Your Name""", 'crewoo',
-     """A short description of the project.""", 'Miscellaneous'),
+    ('index', 'crewoo', 'Crewoo Documentation',
+     """Arun Gopi""", 'Crewoo',
+     """Crewoo Is an Inteliget Project Management Software.""", 'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

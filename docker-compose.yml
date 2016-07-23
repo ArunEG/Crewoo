@@ -33,5 +33,27 @@ services:
 
 
   redis:
-    image: redis:3.0
+    image: redis:latest
+
+  celeryworker:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    user: django
+    env_file: .env
+    depends_on:
+     - postgres
+     - redis
+    command: celery -A crewoo.taskapp worker -l INFO
+
+  celerybeat:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    user: django
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+    command: celery -A crewoo.taskapp beat -l INFO
 

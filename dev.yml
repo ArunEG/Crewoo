@@ -22,6 +22,7 @@ services:
       - postgres
     environment:
       - POSTGRES_USER=crewoo
+      - USE_DOCKER=yes
     volumes:
       - .:/app
     ports:
@@ -29,14 +30,7 @@ services:
     links:
       - postgres
 
-      - mailhog
 
 
 
-
-
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - "8025:8025"
 

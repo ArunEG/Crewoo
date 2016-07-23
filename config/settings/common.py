@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Django settings for crewoo project.
+Django settings for Crewoo project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -88,7 +88,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.s
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ("""Your Name""", 'aslam.saidu@gmail.com'),
+    ("""Arun Gopi""", 'arungopi.online@gmail.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -101,19 +101,16 @@ MANAGERS = ADMINS
 #     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 #     'default': env.db('DATABASE_URL', default='postgres:///crewoo'),
 # }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'crewoo',
         'USER': 'crewoouser',
         'PASSWORD': 'C0nnectDb',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
-
-
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
@@ -123,7 +120,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'Asia/Calcutta'
+TIME_ZONE = 'UTC'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
@@ -238,8 +235,24 @@ LOGIN_URL = 'account_login'
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
+########## CELERY
+INSTALLED_APPS += ('crewoo.taskapp.celery.CeleryConfig',)
+# if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
+INSTALLED_APPS += ('kombu.transport.django',)
+BROKER_URL = env('CELERY_BROKER_URL', default='django://')
+if BROKER_URL == 'django://':
+    CELERY_RESULT_BACKEND = 'redis://'
+else:
+    CELERY_RESULT_BACKEND = BROKER_URL
+########## END CELERY
+
+
+# django-compressor
+# ------------------------------------------------------------------------------
+
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
+
 
 # Your common stuff: Below this line define 3rd party library settings

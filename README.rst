@@ -1,14 +1,12 @@
-crewoo
+Crewoo
 ==============================
 
-A short description of the project.
+Crewoo Is an Inteliget Project Management Software.
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
      :alt: Built with Cookiecutter Django
 
-
-LICENSE: MIT
 
 
 Settings
@@ -48,6 +46,7 @@ Running tests with py.test
 
   $ py.test
 
+
 Live reloading and Sass CSS compilation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -58,30 +57,23 @@ Moved to `Live reloading and SASS compilation`_.
 
 
 
-
-Email Server
-^^^^^^^^^^^^
-
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server `MailHog`_ with a web interface is available as docker container.
-
-.. _mailhog: https://github.com/mailhog/MailHog
-
-Container mailhog will start automatically when you will run all docker containers.
-Please check `cookiecutter-django Docker documentation`_ for more details how to start all containers.
-
-With MailHog running, to view messages that are sent by your application, open your browser and go to ``http://127.0.0.1:8025``
-
-
-
-
-
-Sentry
+Celery
 ^^^^^^
 
-Sentry is an error logging aggregator service. You can sign up for a free account at  https://getsentry.com/signup/?code=cookiecutter  or download and host it yourself.
-The system is setup with reasonable defaults, including 404 logging and integration with the WSGI application.
+This app comes with Celery.
 
-You must set the DSN url in production.
+To run a celery worker:
+
+.. code-block:: bash
+
+    cd crewoo
+    celery -A crewoo.taskapp worker -l info
+
+Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
+
+
+
+
 
 
 
