@@ -10,6 +10,7 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     url(r'^', include('crewoo.apps.home.urls', namespace='home')),
+    url(r'^u/', include('crewoo.apps.project.urls', namespace='home')),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
